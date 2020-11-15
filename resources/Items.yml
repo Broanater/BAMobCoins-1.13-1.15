@@ -12,7 +12,6 @@ Category:
       Price: 100
       Display:
         Material: PAPER
-        Damage: 0
         Amount: 1
         Name: '&d&lFun Paper'
         Lore:
@@ -20,7 +19,6 @@ Category:
           - '&6Price &f: {price}'
       Item:
         Material: GRASS
-        Damage: 0
         Amount: 1
         # Set to "Name: 'default'" to have the default item name.
         Name: '&d&lKey one' 
@@ -33,7 +31,6 @@ Category:
       Price: 100
       Display:
         Material: GRASS
-        Damage: 0
         Amount: 1
         Name: '&d&lGRASS'
         Lore:
@@ -41,7 +38,6 @@ Category:
           - '&6Price &f: {price}'
       Item:
         Material: GRASS
-        Damage: 0
         Amount: 1
         # Set to "Name: 'default'" to have the default item name.
         Name: 'default' 
@@ -70,7 +66,6 @@ Category:
         - 26
       Display:
         Material: STAINED_GLASS_PANE
-        Damage: 0
         Amount: 1
         Name: ' '
         Lore: {}

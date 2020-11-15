@@ -16,7 +16,6 @@ Category:
       Price: 100
       Display:
         Material: TRIPWIRE_HOOK
-        Damage: 0
         Amount: 1
         Name: '&d&lKey one'
         Lore:
@@ -38,7 +37,6 @@ Category:
       Price: 100
       Display:
         Material: TRIPWIRE_HOOK
-        Damage: 0
         Amount: 1
         Name: '&d&lKey two'
         Lore:
@@ -53,7 +51,6 @@ Category:
       Slot: all
       Display:
         Material: STAINED_GLASS_PANE
-        Damage: 0
         Amount: 1
         Name: ' '
         Lore: {}

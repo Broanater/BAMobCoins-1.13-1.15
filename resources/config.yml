@@ -11,7 +11,6 @@ Options:
   Title: '&7[&6BAMobCoins - Shop&7]'
 Coin:
   Item: DOUBLE_PLANT
-  Damage: 0
   Name: '&6&lMob Coin'
   Lore:
   - '&7Right click to deposit!'
