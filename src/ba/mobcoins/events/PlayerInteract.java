@@ -12,20 +12,13 @@ import ba.mobcoins.utilities.Utils;
 
 public class PlayerInteract implements Listener
 {
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void rightClickItem(PlayerInteractEvent event)
 	{
 		Player player = event.getPlayer();
 		ItemStack item = null;
-		try
-		{
-			item = player.getInventory().getItemInHand();
-		}
-		catch (Exception e)
-		{
-			item = player.getInventory().getItemInMainHand();
-		}
+			
+		item = player.getInventory().getItemInMainHand();
 
 		int amount = item.getAmount();
 
