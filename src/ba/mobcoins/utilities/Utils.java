@@ -18,12 +18,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import ba.mobcoins.Main;
 import ba.mobcoins.apis.CoinsAPI;
 import ba.mobcoins.controllers.ConfigController;
 import ba.mobcoins.controllers.MessagesController;
+import ba.mobcoins.logger.CustomLogger;
 import ba.mobcoins.models.CustomItem;
 
 public class Utils implements Listener
@@ -69,14 +71,14 @@ public class Utils implements Listener
 		if (sCoinsRecieved > 1)
 		{
 			message = MessagesController.getGainSingle()
-			.replace("%MOB%", sMob)
-			.replace("%AMOUNT%", String.valueOf(sCoinsRecieved));
+			.replace("{mob}", sMob)
+			.replace("{amount}", String.valueOf(sCoinsRecieved));
 		}
 		else
 		{
 			message = MessagesController.getGainPlural()
-				.replace("%MOB%", sMob)
-				.replace("%AMOUNT%", String.valueOf(sCoinsRecieved));
+				.replace("{mob}", sMob)
+				.replace("{amount}", String.valueOf(sCoinsRecieved));
 		}
 		return convertColorCodes(message);
 	}
@@ -84,7 +86,7 @@ public class Utils implements Listener
 	public static void insufficientPermissions(CommandSender sSender, String sCommand)
 	{
 		String message = MessagesController.getGlobalInsufficientPermission()
-				.replace("%COMMAND%", sCommand);
+				.replace("{command}", sCommand);
 		
 		sSender.sendMessage(convertColorCodes(message));
 	}
@@ -113,10 +115,9 @@ public class Utils implements Listener
 		}
 
 		String name = plugin.getConfig().getString("Coin.Name");
-		int damage = plugin.getConfig().getInt("Coin.Damage");
 
-		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("Coin.Item").toUpperCase()), amount, (short) damage);
-		ItemMeta meta = item.getItemMeta();
+		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("Coin.Item").toUpperCase()), amount);
+		ItemMeta meta = (ItemMeta) item.getItemMeta();
 		meta.setDisplayName(Utils.convertColorCodes(name));
 
 		List<String> loreRaw = plugin.getConfig().getStringList("Coin.Lore");
@@ -143,7 +144,7 @@ public class Utils implements Listener
 	{
 		for (String request : sCommands)
 		{
-			request = request.replace("%PLAYER%", player.getName());
+			request = request.replace("{player}", player.getName());
 			
 			char typeIdentifier = request.charAt(0);
 			String requestWithoutTypeId = request.substring(1, request.length());
@@ -160,7 +161,7 @@ public class Utils implements Listener
 			/* Send message to player purchasing */
 			else if (typeIdentifier == ':')
 			{
-				requestWithoutTypeId = requestWithoutTypeId.replace("%PREFIX%", ConfigController.getPrefix());
+				requestWithoutTypeId = requestWithoutTypeId.replace("{prefix}", ConfigController.getPrefix());
 				sendMessage(player, requestWithoutTypeId);
 			}
 			/* Broadcast message to server */
@@ -170,7 +171,7 @@ public class Utils implements Listener
 			}
 			else
 			{
-				System.out.println("[BAMobCoins] Command for item '" + itemId + "' does not have a type identifier. Ignoring command.");
+				CustomLogger.sendError("[BAMobCoins] Command for item '" + itemId + "' does not have a type identifier. Ignoring command.");
 			}
 		}
 	}
@@ -192,13 +193,15 @@ public class Utils implements Listener
 				{
 					amount -= 64;
 					
-					ItemStack item = new ItemStack(rewardItem.getType(), 64, rewardItem.getDurability());
-					item.setItemMeta(rewardItem.getItemMeta());
+					ItemStack item = new ItemStack(rewardItem.getType(), 64);
+					
+					ItemMeta meta = rewardItem.getItemMeta();
+					item.setItemMeta(meta);
 					player.getInventory().addItem(item);
 				}
 				else
 				{
-					ItemStack item = new ItemStack(rewardItem.getType(), amount, rewardItem.getDurability());
+					ItemStack item = new ItemStack(rewardItem.getType(), amount);
 					item.setItemMeta(rewardItem.getItemMeta());
 					player.getInventory().addItem(item);
 					
